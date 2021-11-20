@@ -4,8 +4,12 @@
     ViewBag.Title = "Корзина";
 }
 
+<style>
+    #cartTable td { vertical-align: middle; }
+</style>
+
 <h2>Ваша корзина</h2>
-<table class="table">
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th>Кол-во</th>
@@ -22,6 +26,14 @@
                 <td class="text-left">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("#.## Br")</td>
                 <td class="text-right">@((line.Quantity * line.Product.Price).ToString("#.## Br"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductId)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Удалить"/>
+                    }
+                </td>
             </tr>
         }
     </tbody>
