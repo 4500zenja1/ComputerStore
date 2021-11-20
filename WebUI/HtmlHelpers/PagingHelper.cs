@@ -14,10 +14,11 @@ namespace WebUI.HtmlHelpers
                                               PagingInfo pagingInfo,
                                               Func<int, string> pageUrl)
         {
-            StringBuilder result = new StringBuilder();
+
+            StringBuilder result = new();
             for (int i = 1; i <= pagingInfo.TotalPages; i++)
             {
-                TagBuilder tag = new TagBuilder("a");
+                TagBuilder tag = new("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
                 if (i == pagingInfo.CurrentPage)

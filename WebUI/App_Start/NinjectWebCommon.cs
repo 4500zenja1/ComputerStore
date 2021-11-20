@@ -13,7 +13,7 @@ namespace WebUI.App_Start
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper bootstrapper = new();
 
         /// <summary>
         /// Starts the application

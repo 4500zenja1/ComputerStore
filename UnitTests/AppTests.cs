@@ -13,13 +13,13 @@ using WebUI.Models;
 namespace UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class AppTests
     {
         [TestMethod]
         public void Can_Paginate()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1"},
@@ -28,7 +28,7 @@ namespace UnitTests
                 new Product {ProductId = 4, Name = "Продукт №4"},
                 new Product {ProductId = 5, Name = "Продукт №5"}
             });
-            ProductController controller = new ProductController(mock.Object)
+            ProductController controller = new(mock.Object)
             {
                 pageSize = 3
             };
@@ -49,13 +49,14 @@ namespace UnitTests
         {
             // arrange
             HtmlHelper myHelper = null;
-            PagingInfo pagingInfo = new PagingInfo
+            PagingInfo pagingInfo = new()
             {
                 CurrentPage = 2,
                 TotalItems = 28,
                 ItemsPerPage = 10
             };
-            string pageUrlDelegate(int i) => "Page" + i;
+
+            static string pageUrlDelegate(int i) => "Page" + i;
 
             // act
             MvcHtmlString result = myHelper.PageLinks(pagingInfo, pageUrlDelegate);
@@ -71,7 +72,7 @@ namespace UnitTests
         public void Can_Send_Pagination_View_Model()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1"},
@@ -80,7 +81,7 @@ namespace UnitTests
                 new Product {ProductId = 4, Name = "Продукт №4"},
                 new Product {ProductId = 5, Name = "Продукт №5"}
             });
-            ProductController controller = new ProductController(mock.Object)
+            ProductController controller = new(mock.Object)
             {
                 pageSize = 3
             };
@@ -101,7 +102,7 @@ namespace UnitTests
         public void Can_Filter_Games()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"},
@@ -110,7 +111,7 @@ namespace UnitTests
                 new Product {ProductId = 4, Name = "Продукт №4", Category = "Cat2"},
                 new Product {ProductId = 5, Name = "Продукт №5", Category = "Cat3"}
             });
-            ProductController controller = new ProductController(mock.Object)
+            ProductController controller = new(mock.Object)
             {
                 pageSize = 3
             };
@@ -129,7 +130,7 @@ namespace UnitTests
         public void Can_Create_Categories()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1", Category = "Ноутбук"},
@@ -137,7 +138,7 @@ namespace UnitTests
                 new Product {ProductId = 3, Name = "Продукт №3", Category = "Ноутбук"},
                 new Product {ProductId = 4, Name = "Продукт №4", Category = "USB-хаб"}
             });
-            NavController target = new NavController(mock.Object);
+            NavController target = new(mock.Object);
 
             // act
             List<string> results = ((IEnumerable<string>)target.Menu().Model).ToList();
@@ -153,13 +154,13 @@ namespace UnitTests
         public void Indicates_Selected_Category()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1", Category = "ОЗУ"},
                 new Product {ProductId = 2, Name = "Продукт №2", Category = "Процессоры"}
             });
-            NavController target = new NavController(mock.Object);
+            NavController target = new(mock.Object);
             string categoryToSelect = "Процессоры";
 
             // act
@@ -173,7 +174,7 @@ namespace UnitTests
         public void Generate_Category_Specific_Game_Count()
         {
             // arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
                 new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"},
@@ -182,7 +183,7 @@ namespace UnitTests
                 new Product {ProductId = 4, Name = "Продукт №4", Category = "Cat2"},
                 new Product {ProductId = 5, Name = "Продукт №5", Category = "Cat3"}
             });
-            ProductController controller = new ProductController(mock.Object)
+            ProductController controller = new(mock.Object)
             {
                 pageSize = 3
             };
