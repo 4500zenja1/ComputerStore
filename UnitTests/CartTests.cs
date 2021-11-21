@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Domain.Abstract;
 using Domain.Entities;
@@ -20,8 +17,8 @@ namespace UnitTests
         public void Can_Add_New_Lines()
         {
             // arrange
-            Product product1 = new() { ProductId = 1, Name = "Продукт №1" };
-            Product product2 = new() { ProductId = 2, Name = "Продукт №2" };
+            Product product1 = new() { ProductId = 1, Name = "Товар №1" };
+            Product product2 = new() { ProductId = 2, Name = "Товар №2" };
             Cart cart = new();
 
             // act
@@ -39,8 +36,8 @@ namespace UnitTests
         public void Can_Add_Quantity_For_Existing_Lines()
         {
             // arrange
-            Product product1 = new() { ProductId = 1, Name = "Продукт №1" };
-            Product product2 = new() { ProductId = 2, Name = "Продукт №2" };
+            Product product1 = new() { ProductId = 1, Name = "Товар №1" };
+            Product product2 = new() { ProductId = 2, Name = "Товар №2" };
             Cart cart = new();
 
             // act
@@ -59,9 +56,9 @@ namespace UnitTests
         public void Can_Remove_Lines()
         {
             // arrange
-            Product product1 = new() { ProductId = 1, Name = "Продукт №1" };
-            Product product2 = new() { ProductId = 2, Name = "Продукт №2" };
-            Product product3 = new() { ProductId = 3, Name = "Продукт №3" };
+            Product product1 = new() { ProductId = 1, Name = "Товар №1" };
+            Product product2 = new() { ProductId = 2, Name = "Товар №2" };
+            Product product3 = new() { ProductId = 3, Name = "Товар №3" };
             Cart cart = new();
 
             // act
@@ -80,8 +77,8 @@ namespace UnitTests
         public void Calculate_Cart_Total()
         {
             // arrange
-            Product product1 = new() { ProductId = 1, Name = "Продукт №1", Price = 100 };
-            Product product2 = new() { ProductId = 2, Name = "Продукт №2", Price = 55 };
+            Product product1 = new() { ProductId = 1, Name = "Товар №1", Price = 100 };
+            Product product2 = new() { ProductId = 2, Name = "Товар №2", Price = 55 };
             Cart cart = new();
 
             // act
@@ -98,8 +95,8 @@ namespace UnitTests
         public void Can_Clear_Contents()
         {
             // arrange
-            Product product1 = new() { ProductId = 1, Name = "Продукт №1", Price = 100 };
-            Product product2 = new() { ProductId = 2, Name = "Продукт №2", Price = 55 };
+            Product product1 = new() { ProductId = 1, Name = "Товар №1", Price = 100 };
+            Product product2 = new() { ProductId = 2, Name = "Товар №2", Price = 55 };
             Cart cart = new();
 
             // act
@@ -119,7 +116,7 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "Cat1"}
             }.AsQueryable());
             Cart cart = new();
             CartController controller = new(mock.Object, null);
@@ -139,7 +136,7 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "Cat1"}
             }.AsQueryable());
             Cart cart = new();
             CartController controller = new(mock.Object, null);
@@ -149,7 +146,6 @@ namespace UnitTests
 
             // assert
             Assert.AreEqual(result.RouteValues["action"], "Index");
-            Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
         }
 
         [TestMethod]

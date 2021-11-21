@@ -22,11 +22,11 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1"},
-                new Product {ProductId = 2, Name = "Продукт №2"},
-                new Product {ProductId = 3, Name = "Продукт №3"},
-                new Product {ProductId = 4, Name = "Продукт №4"},
-                new Product {ProductId = 5, Name = "Продукт №5"}
+                new Product {ProductId = 1, Name = "Товар №1"},
+                new Product {ProductId = 2, Name = "Товар №2"},
+                new Product {ProductId = 3, Name = "Товар №3"},
+                new Product {ProductId = 4, Name = "Товар №4"},
+                new Product {ProductId = 5, Name = "Товар №5"}
             });
             ProductController controller = new(mock.Object)
             {
@@ -39,8 +39,8 @@ namespace UnitTests
             // assert
             List<Product> products = result.Products.ToList();
             Assert.IsTrue(products.Count == 2);
-            Assert.AreEqual(products[0].Name, "Продукт №4");
-            Assert.AreEqual(products[1].Name, "Продукт №5");
+            Assert.AreEqual(products[0].Name, "Товар №4");
+            Assert.AreEqual(products[1].Name, "Товар №5");
 
         }
 
@@ -75,11 +75,11 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1"},
-                new Product {ProductId = 2, Name = "Продукт №2"},
-                new Product {ProductId = 3, Name = "Продукт №3"},
-                new Product {ProductId = 4, Name = "Продукт №4"},
-                new Product {ProductId = 5, Name = "Продукт №5"}
+                new Product {ProductId = 1, Name = "Товар №1"},
+                new Product {ProductId = 2, Name = "Товар №2"},
+                new Product {ProductId = 3, Name = "Товар №3"},
+                new Product {ProductId = 4, Name = "Товар №4"},
+                new Product {ProductId = 5, Name = "Товар №5"}
             });
             ProductController controller = new(mock.Object)
             {
@@ -99,17 +99,17 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Can_Filter_Games()
+        public void Can_Filter_Products()
         {
             // arrange
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"},
-                new Product {ProductId = 2, Name = "Продукт №2", Category = "Cat2"},
-                new Product {ProductId = 3, Name = "Продукт №3", Category = "Cat1"},
-                new Product {ProductId = 4, Name = "Продукт №4", Category = "Cat2"},
-                new Product {ProductId = 5, Name = "Продукт №5", Category = "Cat3"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "Cat1"},
+                new Product {ProductId = 2, Name = "Товар №2", Category = "Cat2"},
+                new Product {ProductId = 3, Name = "Товар №3", Category = "Cat1"},
+                new Product {ProductId = 4, Name = "Товар №4", Category = "Cat2"},
+                new Product {ProductId = 5, Name = "Товар №5", Category = "Cat3"}
             });
             ProductController controller = new(mock.Object)
             {
@@ -122,8 +122,8 @@ namespace UnitTests
 
             // assert
             Assert.AreEqual(result.Count(), 2);
-            Assert.IsTrue(result[0].Name == "Продукт №2" && result[0].Category == "Cat2");
-            Assert.IsTrue(result[1].Name == "Продукт №4" && result[1].Category == "Cat2");
+            Assert.IsTrue(result[0].Name == "Товар №2" && result[0].Category == "Cat2");
+            Assert.IsTrue(result[1].Name == "Товар №4" && result[1].Category == "Cat2");
         }
 
         [TestMethod]
@@ -133,10 +133,10 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "Ноутбук"},
-                new Product {ProductId = 2, Name = "Продукт №2", Category = "Видеокарта"},
-                new Product {ProductId = 3, Name = "Продукт №3", Category = "Ноутбук"},
-                new Product {ProductId = 4, Name = "Продукт №4", Category = "USB-хаб"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "Ноутбуки"},
+                new Product {ProductId = 2, Name = "Товар №2", Category = "Видеокарты"},
+                new Product {ProductId = 3, Name = "Товар №3", Category = "Ноутбуки"},
+                new Product {ProductId = 4, Name = "Товар №4", Category = "USB-хабы"}
             });
             NavController target = new(mock.Object);
 
@@ -145,9 +145,9 @@ namespace UnitTests
 
             // assert
             Assert.AreEqual(results.Count(), 3);
-            Assert.AreEqual(results[0], "USB-хаб");
-            Assert.AreEqual(results[1], "Видеокарта");
-            Assert.AreEqual(results[2], "Ноутбук");
+            Assert.AreEqual(results[0], "USB-хабы");
+            Assert.AreEqual(results[1], "Видеокарты");
+            Assert.AreEqual(results[2], "Ноутбуки");
         }
 
         [TestMethod]
@@ -157,8 +157,8 @@ namespace UnitTests
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "ОЗУ"},
-                new Product {ProductId = 2, Name = "Продукт №2", Category = "Процессоры"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "ОЗУ"},
+                new Product {ProductId = 2, Name = "Товар №2", Category = "Процессоры"}
             });
             NavController target = new(mock.Object);
             string categoryToSelect = "Процессоры";
@@ -171,17 +171,17 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Generate_Category_Specific_Game_Count()
+        public void Generate_Category_Specific_Product_Count()
         {
             // arrange
             Mock<IProductRepository> mock = new();
             mock.Setup(m => m.Products).Returns(new List<Product>
             {
-                new Product {ProductId = 1, Name = "Продукт №1", Category = "Cat1"},
-                new Product {ProductId = 2, Name = "Продукт №2", Category = "Cat2"},
-                new Product {ProductId = 3, Name = "Продукт №3", Category = "Cat1"},
-                new Product {ProductId = 4, Name = "Продукт №4", Category = "Cat2"},
-                new Product {ProductId = 5, Name = "Продукт №5", Category = "Cat3"}
+                new Product {ProductId = 1, Name = "Товар №1", Category = "Cat1"},
+                new Product {ProductId = 2, Name = "Товар №2", Category = "Cat2"},
+                new Product {ProductId = 3, Name = "Товар №3", Category = "Cat1"},
+                new Product {ProductId = 4, Name = "Товар №4", Category = "Cat2"},
+                new Product {ProductId = 5, Name = "Товар №5", Category = "Cat3"}
             });
             ProductController controller = new(mock.Object)
             {
