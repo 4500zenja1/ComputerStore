@@ -1,13 +1,24 @@
 ﻿@model Domain.Entities.Cart
 
 <div class="navbar-right">
-    @Html.ActionLink("Заказать", "Index", "Cart",
-    new { returnUrl = Request.Url.PathAndQuery },
+    @Html.ActionLink("Просмотреть", "Index", "Cart", null,
     new { @class = "btn btn-default navbar-btn" })
 </div>
 
+@{ 
+    var lines = @Model.Lines.Sum(x => x.Quantity);
+    var sum = @Model.ComputeTotalValue().ToString("#.## Br");
+}
 <div class="navbar-text navbar-right">
-    <b>Ваша корзина:</b>
-    @Model.Lines.Sum(x => x.Quantity) товаров,
-    @Model.ComputeTotalValue().ToString("#.## Br")
+    @if (lines == 0)
+    {
+        <b>Ваша корзина пустая</b>
+    } else
+    {
+        <b>Ваша корзина:</b>
+        @(lines + (lines % 10 == 1 && lines % 100 / 10 != 1 ? " товар, "
+            : lines % 10 >= 2 && lines % 10 <= 5 && lines % 100 / 10 != 1 ? " товара, "
+            : " товаров, "))
+        @sum
+    };
 </div>

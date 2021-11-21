@@ -1,0 +1,42 @@
+﻿@model Domain.Entities.ShippingDetails
+
+@{
+    ViewBag.Title = "Форма заказа";
+}
+
+<h2>Оформить заказ прямо сейчас!</h2>
+<p>Пожалуйста, введите свои контактные данные, и мы сразу отправим Ваши товары!</p>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+    <h3>Данные</h3>
+    <div class="form-group">
+        <label>Ваше имя:</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    </div>
+
+    <h3>Адрес доставки</h3>
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap")
+        {
+            <div claa="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control"})
+            </div>
+        }
+    }
+
+    <h3>Опции:</h3>
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(x => x.GiftWrap)
+            Использовать подарочную упаковку?
+        </label>
+    </div>
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Обработать заказ"/>
+    </div>
+}
