@@ -90,6 +90,10 @@ namespace UnitTests
         {
             // arrange
             Mock<IProductRepository> mock = new();
+            mock.Setup(m => m.Products).Returns(new List<Product>
+            {
+                new Product {Name = "Test"},
+            });
             AdminController controller = new(mock.Object);
             Product product = new() { Name = "Test"};
 

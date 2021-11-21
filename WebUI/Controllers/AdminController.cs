@@ -5,6 +5,7 @@ using Domain.Entities;
 
 namespace WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         readonly IProductRepository repository;
