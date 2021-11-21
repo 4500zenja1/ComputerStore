@@ -16,30 +16,61 @@
             <h3>Добавление нового товара</h3>
         }
     </div>
-    @using (Html.BeginForm("Edit", "Admin"))
+    @using (Html.BeginForm("Edit", "Admin",
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="panel-body">
             @Html.HiddenFor(x => x.ProductId)
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                if (property.PropertyName != "ProductId")
+                switch (property.PropertyName)
                 {
-                    <div class="form-group">
-                        <label>@(property.DisplayName ?? property.PropertyName)</label>
-                        @if (property.PropertyName == "Description")
-                        {
-                            @Html.TextArea(property.PropertyName, null,
-                             new { @class = "form-control", rows = 5 })
-                        }
-                        else
-                        {
-                            @Html.TextBox(property.PropertyName, null,
-                             new { @class = "form-control" })
-                        }
-                        @Html.ValidationMessage(property.PropertyName)
-                    </div>
+                    case "ProductId":
+                    case "ImageData":
+                    case "ImageMimeType":
+                        break;
+                    default:
+                        <div class="form-group">
+                            <label>@(property.DisplayName ?? property.PropertyName)</label>
+                            @if (property.PropertyName == "Description")
+                            {
+                                @Html.TextArea(property.PropertyName, null,
+                                 new { @class = "form-control", rows = 5 })
+                            }
+                            else
+                            {
+                                @Html.TextBox(property.PropertyName, null,
+                                 new { @class = "form-control" })
+                            }
+                            @Html.ValidationMessage(property.PropertyName)
+                        </div>
+                        break;
                 }
             }
+            <div class="panel-body">
+                <div style="position:relative;">
+                    <label>Картинка</label>
+                    <a class="btn" href="javascript:;">
+                        Выберите файл...
+                        <input type="file" name="Image" size="40"
+                               style="position:absolute;z-index:2;top:0;
+                               left:0;opacity:0;background-color:transparent;
+                               color:transparent;"
+                               onchange='$("#upload-file-info").html($(this).val());'/>
+                    </a>
+                    <span class="label label-info" id="upload-file-info"></span>
+                </div>
+                @if (Model.ImageData == null)
+                {
+                    <div class="form-control-static">Нет картинки</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150"
+                         src="@Url.Action("GetImage", "Product",
+                             new { Model.ProductId })" />
+                }
+            </div>
         </div>
         <div class="panel-footer">
             <input class="btn btn-primary" type="submit" value="Сохранить"/>
