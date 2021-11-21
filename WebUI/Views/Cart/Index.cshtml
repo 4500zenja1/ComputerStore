@@ -2,50 +2,63 @@
 
 @{ 
     ViewBag.Title = "Корзина";
+    var lines = Model.Cart.Lines.Count();
 }
 
 <style>
     #cartTable td { vertical-align: middle; }
 </style>
 
-<h2>Ваша корзина</h2>
-<table id="cartTable" class="table">
-    <thead>
-        <tr>
-            <th>Кол-во</th>
-            <th>Товар</th>
-            <th class="text-right">Цена</th>
-            <th class="text-right">Общая цена</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Cart.Lines)
-        {
+@if (lines > 0)
+{
+    <h2>Ваша корзина</h2>
+    <table id="cartTable" class="table">
+        <thead>
             <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("#.## Br")</td>
-                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("#.## Br"))</td>
-                <td>
-                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                    {
-                        @Html.Hidden("ProductId", line.Product.ProductId)
-                        <input class="btn btn-sm btn-warning" type="submit" value="Удалить"/>
-                    }
+                <th>Кол-во</th>
+                <th>Товар</th>
+                <th class="text-right">Цена</th>
+                <th class="text-right">Общая цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td class="text-center">@line.Quantity</td>
+                    <td class="text-left">@line.Product.Name</td>
+                    <td class="text-right">@line.Product.Price.ToString("#.## Br")</td>
+                    <td class="text-right">@((line.Quantity * line.Product.Price).ToString("#.## Br"))</td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                        {
+                            @Html.Hidden("ProductId", line.Product.ProductId)
+                            <input class="btn btn-sm btn-warning" type="submit" value="Удалить"/>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Итого:</td>
+                <td class="text-right">
+                    @Model.Cart.ComputeTotalValue().ToString("#.## Br") 
                 </td>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Итого:</td>
-            <td class="text-right">
-                @Model.Cart.ComputeTotalValue().ToString("#.## Br")
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </tfoot>
+    </table>
 
-<div class="text-center">
-    @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary"})
-</div>
+    <div class="text-center">
+        @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary" })
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p><b>Ваша корзина на данный момент пуста.</b>
+        <p>Для начала оформления заказа выберите хотя бы одну едииницу товара в корзину.</p>
+        @Html.ActionLink("Вернуться к списку товаров", "List", "Product", null,
+            new { @class = "btn btn-primary" })
+    </div>
+}
