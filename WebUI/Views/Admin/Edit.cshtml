@@ -7,9 +7,16 @@
 
 <div class="panel">
     <div class="panel-heading">
-        <h3>Редактирование товара "@Model.Name"</h3>
+        @if (Model.Name != null)
+        {
+            <h3>Редактирование товара "@Model.Name"</h3>
+        }
+        else
+        {
+            <h3>Добавление нового товара</h3>
+        }
     </div>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Edit", "Admin"))
     {
         <div class="panel-body">
             @Html.HiddenFor(x => x.ProductId)

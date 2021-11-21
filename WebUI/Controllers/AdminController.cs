@@ -19,6 +19,12 @@ namespace WebUI.Controllers
             return View(repository.Products);
         }
 
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View("Edit", new Product());
+        }
+
         public ViewResult Edit(int productId)
         {
             Product product = repository.Products
@@ -33,13 +39,32 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 repository.SaveProduct(product);
-                TempData["message"] = string.Format("Изменения в товаре \"{0}\" были сохранены :D", product.Name);
+                if (product.ProductId == repository.Products.ToList()[repository.Products.Count()-1].ProductId)
+                {
+                    TempData["message"] = string.Format("Товар \"{0}\" успешно добавлен!", product.Name);
+                }
+                else
+                {
+                    TempData["message"] = string.Format("Изменения в товаре \"{0}\" были сохранены!", product.Name);
+                }
                 return RedirectToAction("Index");
             }
             else
             {
                 return View(product);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int productId)
+        {
+            Product deletedProduct = repository.DeleteProduct(productId);
+            if (deletedProduct != null)
+            {
+                TempData["message"] = string.Format("Товар \"{0}\" успешно удалён из базы данных",
+                    deletedProduct.Name);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

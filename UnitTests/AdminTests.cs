@@ -117,5 +117,28 @@ namespace UnitTests
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
+
+        [TestMethod]
+        public void Can_Delete_Valid_Products()
+        {
+            // arrange
+            Product product = new() { ProductId = 2, Name = "Товар №2" };
+            Mock<IProductRepository> mock = new();
+            mock.Setup(m => m.Products).Returns(new List<Product>
+            {
+                new Product {ProductId = 1, Name = "Товар №1"},
+                new Product {ProductId = 2, Name = "Товар №2"},
+                new Product {ProductId = 3, Name = "Товар №3"},
+                new Product {ProductId = 4, Name = "Товар №4"},
+                new Product {ProductId = 5, Name = "Товар №5"},
+            });
+            AdminController controller = new(mock.Object);
+
+            // act
+            controller.Delete(product.ProductId);
+
+            // assert
+            mock.Verify(m => m.DeleteProduct(product.ProductId));
+        }
     }
 }
