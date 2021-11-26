@@ -12,6 +12,10 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
     <div class="navbar navbar-inverse" role="navigation">
         <a class="navbar-brand" href="#">КИТ — компьютерные и информационные товары</a>
         @Html.Action("Summary", "Cart")

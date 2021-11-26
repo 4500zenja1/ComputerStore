@@ -19,10 +19,13 @@
             </tr>
             @foreach (var item in Model)
             {
+                var price = item.Price;
+                var rubles = (int)price;
+                var cents = (int)((price - rubles) * 100);
                 <tr>
                     <td class="text-right">@item.ProductId</td>
                     <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductId })</td>
-                    <td class="text-right">@item.Price.ToString("#.## Br.")</td>
+                    <td class="text-right">@rubles р. @cents к. </td>
                     <td class="text-center">
                         @using (Html.BeginForm("Delete", "Admin"))
                         {

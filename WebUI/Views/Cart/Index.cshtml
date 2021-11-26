@@ -24,16 +24,22 @@
         <tbody>
             @foreach (var line in Model.Cart.Lines)
             {
+                var price = line.Product.Price;
+                var rubles = (int)price;
+                var cents = (int)((price - rubles) * 100);
+                var total_price = line.Quantity * line.Product.Price;
+                var total_rubles = (int)total_price;
+                var total_cents = (int)((total_price - total_rubles) * 100);
                 <tr>
                     <td class="text-center">@line.Quantity</td>
                     <td class="text-left">@line.Product.Name</td>
-                    <td class="text-right">@line.Product.Price.ToString("#.## Br")</td>
-                    <td class="text-right">@((line.Quantity * line.Product.Price).ToString("#.## Br"))</td>
+                    <td class="text-right">@rubles р. @cents к.</td>
+                    <td class="text-right">@total_rubles р. @total_cents к. </td>
                     <td>
                         @using (Html.BeginForm("RemoveFromCart", "Cart"))
                         {
                             @Html.Hidden("ProductId", line.Product.ProductId)
-                            <input class="btn btn-sm btn-warning" type="submit" value="Удалить"/>
+                            <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
                         }
                     </td>
                 </tr>
@@ -43,7 +49,12 @@
             <tr>
                 <td colspan="3" class="text-right">Итого:</td>
                 <td class="text-right">
-                    @Model.Cart.ComputeTotalValue().ToString("#.## Br") 
+                    @{
+                        var cart = Model.Cart.ComputeTotalValue();
+                        var cart_rubles = (int)cart;
+                        var cart_cents = (int)((cart - cart_rubles) * 100);
+                    }
+                    @cart_rubles р. @cart_cents к.
                 </td>
             </tr>
         </tfoot>

@@ -1,5 +1,11 @@
 ﻿@model Domain.Entities.Product
 
+@{ 
+    var price = Model.Price;
+    var rubles = (int)price;
+    var cents = (int)((price - rubles) * 100);
+}
+
 <div class="well">
     @if (Model.ImageData != null)
     {
@@ -11,7 +17,7 @@
     }
     <h3>
         <strong>@Model.Name</strong>
-        <span class="pull-right label label-primary">@Model.Price.ToString("#.## Br")</span>
+        <span class="pull-right label label-primary">@rubles р. @cents к.</span>
     </h3>
     @using (Html.BeginForm("AddToCart", "Cart"))
     {

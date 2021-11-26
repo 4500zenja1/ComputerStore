@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Domain.Abstract;
 using Domain.Entities;
 using WebUI.Models;
@@ -61,8 +62,10 @@ namespace WebUI.Controllers
             if (product != null)
             {
                 cart.AddItem(product, 1);
+                TempData["message"] = string.Format("Товар \"{0}\" успешно добавлен в корзину!",
+                    product.Name);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("List", "Product");
         }
 
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId)
