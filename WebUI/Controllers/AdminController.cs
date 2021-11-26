@@ -46,8 +46,7 @@ namespace WebUI.Controllers
                     image.InputStream.Read(product.ImageData, 0, image.ContentLength);
                     product.ImageMimeType = image.ContentType;
                 }
-                repository.SaveProduct(product);
-                if (product.ProductId == repository.Products.ToList()[repository.Products.Count()-1].ProductId)
+                if (product.ProductId == 0)
                 {
                     TempData["message"] = string.Format("Товар \"{0}\" успешно добавлен!", product.Name);
                 }
@@ -55,6 +54,7 @@ namespace WebUI.Controllers
                 {
                     TempData["message"] = string.Format("Изменения в товаре \"{0}\" были сохранены!", product.Name);
                 }
+                repository.SaveProduct(product);
                 return RedirectToAction("Index");
             }
             else
