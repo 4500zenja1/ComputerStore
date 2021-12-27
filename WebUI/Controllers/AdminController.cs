@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebUI.Infrastructure;
 using WebUI.Models;
+using static WebUI.Models.UserViewModel;
 
 namespace WebUI.Controllers
 {
@@ -91,7 +92,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser(CreateUserModel model)
+        public async Task<ActionResult> CreateUser(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {

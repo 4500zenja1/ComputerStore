@@ -14,8 +14,9 @@ namespace WebUI
     {
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<AppIdentityDbContext>(AppIdentityDbContext.Create);
+            app.CreatePerOwinContext(AppIdentityDbContext.Create);
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
+            app.CreatePerOwinContext<AppRoleManager>(AppRoleManager.Create);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

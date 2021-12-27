@@ -145,7 +145,7 @@ namespace UnitTests
             RedirectToRouteResult result = controller.AddToCart(cart, 2);
 
             // assert
-            Assert.AreEqual(result.RouteValues["action"], "Index");
+            Assert.AreEqual(result.RouteValues["action"], "List");
         }
 
         [TestMethod]
