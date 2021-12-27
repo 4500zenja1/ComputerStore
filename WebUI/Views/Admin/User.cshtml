@@ -1,0 +1,47 @@
+﻿@using WebUI.Models
+@model IEnumerable<AppUser>
+
+@{
+    ViewBag.Title = "Админ-панель: список пользователей";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Учетные записи
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-center">Нет ни одной учетной записи</td>
+            </tr>
+        }
+        else
+        {
+            foreach (AppUser user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @using (Html.BeginForm("DeleteUser", "Admin", new {id = user.Id}))
+                        {
+                            @Html.ActionLink("Изменить", "EditUser", new { id = user.Id },
+                                new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
+                            <button class="btn btn-primary btn-xs" type="submit">Удалить</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+@Html.ActionLink("Создать", "CreateUser", null, new { @class = "btn btn-primary" })

@@ -1,0 +1,28 @@
+﻿@model WebUI.Models.CreateUserModel
+
+@{
+    ViewBag.Title = "Админ-панель: создание пользователя";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Создание нового пользователя</h2>
+@Html.ValidationSummary(false)
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Имя</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Пароль</label>
+        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
+
+    @Html.ActionLink("Отмена", "User", null, new { @class = "btn btn-default" })
+}
