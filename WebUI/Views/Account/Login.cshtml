@@ -12,7 +12,6 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken();
-    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
     <div class="form-group">
         <label>Имя</label>
         @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
@@ -21,6 +20,6 @@
         <label>Пароль</label>
         @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
     </div>
-    <button class="btn btn-primary" type="submit">Войти</button>
+    <button class="btn btn-default" type="submit">Войти</button>
 }
 

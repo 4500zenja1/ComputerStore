@@ -6,33 +6,41 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
     <div class="panel-heading">
-        Учетные записи
+        <h3>Учётные записи</h3>
     </div>
-    <table class="table table-striped">
-        <tr>
-            <th>Id</th>
-            <th>Имя</th>
-            <th>Email</th>
-            <th></th>
-        </tr>
-        @foreach (AppUser user in Model)
-        {
+    <div class="panel-body">
+        <table class="table table-striped">
             <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>
-                    @using (Html.BeginForm("DeleteUser", "Admin", new {id = user.Id}))
-                        {
-                        @Html.ActionLink("Изменить", "EditUser", new { id = user.Id },
-                            new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
-                        <button class="btn btn-primary btn-xs" type="submit">Удалить</button>
-                    }
-                </td>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th></th>
             </tr>
-        }
-    </table>
+            @foreach (AppUser user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @using (Html.BeginForm("DeleteUser", "Admin", new { id = user.Id }))
+                        {
+                            @Html.ActionLink("Изменить", "EditUser", new { id = user.Id },
+                                new { @class = "btn btn-default btn-xs", style = "float: left; margin-right: 10px" })
+                            <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Создать пользователя", "CreateUser", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Товары", "Index", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Роли", "Index", "RoleAdmin", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Вернуться на главную страницу", "List", "Product", null,
+            new { @class = "btn btn-default pull-right" })
+    </div>
 </div>
-@Html.ActionLink("Создать", "CreateUser", null, new { @class = "btn btn-primary" })

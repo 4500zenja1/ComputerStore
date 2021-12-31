@@ -18,7 +18,7 @@ namespace WebUI.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return View("Error", new string[] { "В доступе отказано" });
+                return View("Error", new string[] { "Вы уже вошли в систему." });
             }
             ViewBag.returnUrl = returnUrl;
             return View();
@@ -27,7 +27,7 @@ namespace WebUI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel details, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel details)
         {
             AppUser user = await UserManager.FindAsync(details.Name, details.Password);
 
@@ -45,7 +45,8 @@ namespace WebUI.Controllers
                 {
                     IsPersistent = false
                 }, ident);
-                return Redirect(returnUrl);
+                TempData["message"] = "Вы успешно вошли в систему!";
+                return RedirectToAction("List", "Product");
             }
 
             return View(details);
@@ -55,6 +56,7 @@ namespace WebUI.Controllers
         public ActionResult Logout()
         {
             AuthManager.SignOut();
+            TempData["message"] = "Вы вышли из системы";
             return RedirectToAction("List", "Product");
         }
 

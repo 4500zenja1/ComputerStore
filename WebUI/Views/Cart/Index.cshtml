@@ -61,7 +61,7 @@
     </table>
 
     <div class="text-center">
-        @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-default" })
     </div>
 }
 else
@@ -70,6 +70,6 @@ else
         <p><b>Ваша корзина на данный момент пуста.</b>
         <p>Для начала оформления заказа выберите хотя бы одну едииницу товара в корзину.</p>
         @Html.ActionLink("Вернуться к списку товаров", "List", "Product", null,
-            new { @class = "btn btn-primary" })
+            new { @class = "btn btn-default" })
     </div>
 }

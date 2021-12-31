@@ -4,6 +4,6 @@ namespace WebUI.Models
 {
     public class AppUser : IdentityUser
     {
-        // Здесь будут указываться дополнительные свойства
+        public AppUser() : base() { }
     }
 }

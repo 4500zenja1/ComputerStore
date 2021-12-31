@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebUI.Models;
 
 namespace WebUI.Infrastructure.Abstract
 {
-    public interface IAuthProvider
+    public interface IOrderRepository
     {
-        bool Authenticate(string username, string password);
+        IEnumerable<Order> Orders { get;  }
     }
 }

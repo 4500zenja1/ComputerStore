@@ -13,6 +13,7 @@ using static WebUI.Models.UserViewModel;
 
 namespace WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleAdminController : Controller
     {
         private AppUserManager UserManager

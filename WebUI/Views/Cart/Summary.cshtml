@@ -1,26 +1,53 @@
 ﻿@model Domain.Entities.Cart
 
-<div class="navbar-right">
-    @Html.ActionLink("Просмотреть", "Index", "Cart", null,
-    new { @class = "btn btn-default navbar-btn" })
-</div>
+@{
+    var is_auth = Context.User.Identity.IsAuthenticated;
+}
 
-@{ 
+@if (is_auth)
+{
+    <div class="navbar-right">
+        @Html.ActionLink("Выйти", "Logout", "Account", null,
+        new { @class = "btn btn-default navbar-btn" })
+    </div>
+
+    <div class="navbar-right">
+        @Html.ActionLink("Просмотреть", "Index", "Cart", null,
+        new { @class = "btn btn-default navbar-btn" })
+    </div>
+
+
     var lines = @Model.Lines.Sum(x => x.Quantity);
     var sum = @Model.ComputeTotalValue();
     var rubles = (int)sum;
     var cents = (int)((sum - rubles) * 100);
-}
-<div class="navbar-text navbar-right">
-    @if (lines == 0)
-    {
-        <b>Ваша корзина пустая</b>
-    } else
-    {
-        <b>Ваша корзина:</b>
-        @(lines + (lines % 10 == 1 && lines % 100 / 10 != 1 ? " товар, "
+
+    <div class="navbar-text navbar-right">
+        @if (lines == 0)
+        {
+            <b>Ваша корзина пустая</b>
+        }
+        else
+        {
+            <b>Ваша корзина:</b>
+            @(lines + (lines % 10 == 1 && lines % 100 / 10 != 1 ? " товар, "
             : lines % 10 >= 2 && lines % 10 <= 5 && lines % 100 / 10 != 1 ? " товара, "
             : " товаров, "));
-        @(rubles + "р. " + cents + "к.");
-    }
-</div>
+            @(rubles + "р. " + cents + "к.");
+        }
+    </div>
+    if (Context.User.IsInRole("Admin"))
+    {
+        <div class="navbar-right">
+            @Html.ActionLink("Админ-панель", "Index", "Admin", null,
+            new { @class = "btn btn-default navbar-btn" })
+        </div>
+    };
+}
+else
+{
+    <div class="navbar-right">
+        @Html.ActionLink("Войти", "Login", "Account", null,
+        new { @class = "btn btn-default navbar-btn" })
+    </div>
+}

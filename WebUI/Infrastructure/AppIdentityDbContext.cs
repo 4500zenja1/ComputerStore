@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebUI.Models;
 
@@ -32,7 +33,6 @@ namespace WebUI.Infrastructure
         }
         public void PerformInitialSetup(AppIdentityDbContext context)
         {
-            // настройки конфигурации контекста будут указываться здесь
         }
     }
 }

@@ -12,7 +12,7 @@ using static WebUI.Models.UserViewModel;
 
 namespace WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
         readonly IProductRepository repository;

@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     <input type="hidden" name="roleName" value="@Model.Role.Name" />
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
         <div class="panel-heading">Добавить в роль <b>@Model.Role.Name</b></div>
         <table class="table table-striped">
             @if (Model.NonMembers.Count() == 0)
@@ -38,7 +38,7 @@
         </table>
     </div>
 
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
         <div class="panel-heading">Удалить из роли <b>@Model.Role.Name</b></div>
         <table class="table table-striped">
             @if (Model.Members.Count() == 0)
@@ -65,7 +65,7 @@
             }
         </table>
     </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button type="submit" class="btn btn-default">Сохранить</button>
     @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
 }
 
