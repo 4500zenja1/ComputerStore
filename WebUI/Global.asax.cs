@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
-using Domain.Entities;
 using WebUI.Infrastructure.Binders;
+using WebUI.Models;
 
 namespace WebUI
 {

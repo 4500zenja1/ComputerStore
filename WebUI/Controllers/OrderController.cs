@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using WebUI.Infrastructure.Abstract;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly IOrderRepository repository;
-        public OrderController(IOrderRepository repo)
+        readonly IRepository repository;
+
+        public OrderController(IRepository repo)
         {
             repository = repo;
         }
-
-        public ViewResult List()
+        public ActionResult Index()
         {
             return View(repository.Orders);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int orderId)
+        {
+            Order deletedOrder= repository.DeleteOrder(orderId);
+            if (deletedOrder != null)
+            {
+                TempData["message"] = "Заказ успешно удалён из базы данных";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

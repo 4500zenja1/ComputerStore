@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Domain.Abstract;
-using Domain.Entities;
+using WebUI.Infrastructure.Abstract;
 using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductRepository repository;
+        private readonly IRepository repository;
         public int pageSize = 4;
 
-        public ProductController(IProductRepository repo)
+        public ProductController(IRepository repo)
         {
             repository = repo;
         }

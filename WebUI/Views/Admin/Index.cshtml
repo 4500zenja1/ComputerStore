@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Entities.Product>
+﻿@model IEnumerable<WebUI.Models.Product>
 
 @{
     ViewBag.Title = "Админ-панель: список товаров";
@@ -45,6 +45,8 @@
         @Html.ActionLink("Пользователи", "User", null,
             new { @class = "btn btn-default" })
         @Html.ActionLink("Роли", "Index", "RoleAdmin", null,
+            new { @class = "btn btn-default" })
+        @Html.ActionLink("Заказы", "Index", "Order", null,
             new { @class = "btn btn-default" })
         @Html.ActionLink("Вернуться на главную страницу", "List", "Product", null,
             new { @class = "btn btn-default pull-right" })

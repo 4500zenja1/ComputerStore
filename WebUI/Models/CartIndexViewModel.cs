@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-
-namespace WebUI.Models
+﻿namespace WebUI.Models
 {
     public class CartIndexViewModel
     {

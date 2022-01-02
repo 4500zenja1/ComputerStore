@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Domain.Entities;
+using WebUI.Models;
 
 namespace WebUI.Infrastructure.Binders
 {

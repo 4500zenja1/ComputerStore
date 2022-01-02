@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI;
-using Domain.Abstract;
-using Domain.Entities;
+using WebUI.Infrastructure.Abstract;
+using WebUI.Infrastructure.Concrete;
 using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductRepository repository;
-        private readonly IOrderProcessor orderProcessor;
-        public CartController(IProductRepository repo, IOrderProcessor processor)
+        private readonly IRepository repository;
+        private readonly EFRepository orderRep;
+        public CartController(IRepository repo, EFRepository rep)
         {
             repository = repo;
-            orderProcessor = processor;
+            orderRep = rep;
         }
 
         public ViewResult Checkout()
@@ -36,7 +32,7 @@ namespace WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                orderProcessor.ProcessOrder(cart, shippingDetails);
+                orderRep.SaveOrder(cart, shippingDetails);
                 cart.Clear();
                 return View("Completed");
             }

@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Domain.Abstract;
-using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebUI.Infrastructure;
+using WebUI.Infrastructure.Abstract;
 using WebUI.Models;
 using static WebUI.Models.UserViewModel;
 
@@ -15,9 +14,9 @@ namespace WebUI.Controllers
     [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
-        readonly IProductRepository repository;
+        readonly IRepository repository;
 
-        public AdminController(IProductRepository repo)
+        public AdminController(IRepository repo)
         {
             repository = repo;
         }
@@ -102,6 +101,13 @@ namespace WebUI.Controllers
 
                 if (result.Succeeded)
                 {
+                    IdentityResult adding = await UserManager.AddToRoleAsync(user.Id, "User");
+                    if (!adding.Succeeded)
+                    {
+                        return View("Error", result.Errors);
+                    }
+                    TempData["message"] = string.Format("Пользователь \"{0}\" создан!",
+                    model.Name);
                     return RedirectToAction("User");
                 }
                 AddErrorsFromResult(result);
@@ -118,6 +124,8 @@ namespace WebUI.Controllers
                 IdentityResult result = await UserManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
+                    TempData["message"] = string.Format("Пользователь \"{0}\" успешно удалён из базы данных",
+                    user.UserName);
                     return RedirectToAction("User");
                 }
                 return View("Error", result.Errors);
@@ -174,6 +182,7 @@ namespace WebUI.Controllers
                     IdentityResult result = await UserManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        TempData["message"] = "Данные успеешно сохранены";
                         return RedirectToAction("User");
                     }
                     else

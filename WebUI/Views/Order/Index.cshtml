@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebUI.Models.Order>
+
+@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Заказы</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-condensed table-striped">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">ID покупателя</th>
+                <th class="text-center">Описание</th>
+                <th class="text-center">Действия</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@item.OrderId</td>
+                    <td class="text-center">@item.UserId</td>
+                    <td class="text-center">
+                        @(new HtmlString(@item.Details))
+                    </td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("Delete", "Order", new { orderId = item.OrderId }))
+                        {
+                            <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+                        } 
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Товары", "Index", "Admin", null,
+            new { @class = "btn btn-default" })
+        @Html.ActionLink("Пользователи", "User", null,
+            new { @class = "btn btn-default" })
+        @Html.ActionLink("Роли", "Index", "RoleAdmin", null,
+            new { @class = "btn btn-default" })
+        @Html.ActionLink("Вернуться на главную страницу", "List", "Product", null,
+            new { @class = "btn btn-default pull-right" })
+    </div>
+</div>
