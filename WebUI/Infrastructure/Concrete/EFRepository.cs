@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using WebUI.Infrastructure.Abstract;
 using WebUI.Models;
-using System.Web;
-using System.Text;
 
 namespace WebUI.Infrastructure.Concrete
 {

@@ -1,7 +1,7 @@
-﻿using Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Ninject;
 using WebUI.Infrastructure.Abstract;
 using WebUI.Infrastructure.Concrete;
 
