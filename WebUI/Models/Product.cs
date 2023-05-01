@@ -24,7 +24,7 @@ namespace WebUI.Models
         [Display(Name="Цена (в Br)")]
         [Required]
         [Range(0.01, double.MaxValue,
-            ErrorMessage = "Пожалуйста, введите сторого положительное значение для цены (не менее 0.01 Br)")]
+            ErrorMessage = "Пожалуйста, введите строго положительное значение для цены (не менее 0.01 Br)")]
         public decimal Price { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
